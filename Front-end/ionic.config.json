@@ -1,0 +1,7 @@
+{
+  "name": "Cooperativa",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

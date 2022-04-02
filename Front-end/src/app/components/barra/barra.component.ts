@@ -12,3 +12,8 @@ export class BarraComponent implements OnInit {
   ngOnInit() {}
 
 }
+
+interface TabsCustomEvent extends CustomEvent {
+  detail: { tab: string };
+  target: HTMLIonTabsElement;
+}

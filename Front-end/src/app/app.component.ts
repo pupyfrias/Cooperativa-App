@@ -17,6 +17,12 @@ export class AppComponent {
     { title: 'Tasas', url: '/tasas', icon: 'timeline' },
     { title: 'Configuración', url: '/configuracion', icon: 'settings' }
   ];
-  public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
+
+  title='prueba';
   constructor() {}
+}
+
+interface TabsCustomEvent extends CustomEvent {
+  detail: { tab: string };
+  target: HTMLIonTabsElement;
 }

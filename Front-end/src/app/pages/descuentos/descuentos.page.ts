@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-descuentos',
   templateUrl: './descuentos.page.html',
@@ -13,4 +14,8 @@ export class DescuentosPage implements OnInit {
   ngOnInit() {
   }
 
+}
+interface TabsCustomEvent extends CustomEvent {
+  detail: { tab: string };
+  target: HTMLIonTabsElement;
 }

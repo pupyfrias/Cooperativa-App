@@ -8,7 +8,7 @@ import { CuentasPageRoutingModule } from './cuentas-routing.module';
 
 import { CuentasPage } from './cuentas.page';
 import { MenuModule } from 'src/app/components/menu/menu.module';
-
+import { BarraModule } from 'src/app/components/barra/barra.module';
 
 @NgModule({
   imports: [
@@ -16,7 +16,8 @@ import { MenuModule } from 'src/app/components/menu/menu.module';
     FormsModule,
     IonicModule,
     CuentasPageRoutingModule,
-    MenuModule
+    MenuModule,
+    BarraModule
   ],
   declarations: [CuentasPage]
 })

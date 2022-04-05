@@ -26,6 +26,12 @@
 @import "~@ionic/angular/css/flex-utils.css";
 @import "~bootstrap/scss/bootstrap";
 
+@import '~swiper/css/bundle';
+
+.swiper-container{
+
+  margin: 0% 10%;
+}
 
 /* Global CSS */
 ion-menu-button {
@@ -53,6 +59,16 @@ ion-menu-button {
   margin: 0;
 }
 
-#container a {
-  text-decoration: none;
+.logo
+{
+  margin: 0% 25% 15%;
+}
+
+div a {
+  text-decoration: none !important;
+  color: inherit !important;
+}
+
+.radius-image{
+  border-radius: 4%;
 }

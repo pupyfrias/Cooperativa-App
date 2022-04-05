@@ -21,8 +21,3 @@ export class AppComponent {
   title='prueba';
   constructor() {}
 }
-
-interface TabsCustomEvent extends CustomEvent {
-  detail: { tab: string };
-  target: HTMLIonTabsElement;
-}

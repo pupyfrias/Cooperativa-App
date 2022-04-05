@@ -1,0 +1,15 @@
+<app-menu [title]="title"></app-menu>
+<ion-content class='m-5'>
+
+  <swiper #swiper [config]="config" class="p-3">
+    <ng-template swiperSlide *ngFor="let item of listNoticia ">
+     <a [href]="item.link">
+      <img [src]= "item.imagen" class="radius-image">
+      <h3 class="text-center mt-1"><strong>{{item.title}} </strong> </h3>
+      <p>{{item.resumen}}</p>
+    </a>
+    </ng-template>
+  </swiper>
+
+
+</ion-content>

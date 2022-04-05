@@ -6,29 +6,34 @@
     </ion-toolbar>
   </ion-header>
 
-  <form class="container" [formGroup]="formGroup">
+  <div class="container">
 
-    <mat-form-field appearance="outline" floatLabel="always" >
-      <mat-label>Cédula</mat-label>
-      <input matInput type="number" formControlName="id" placeholder="40200000000" size="100">
-      <mat-icon matPrefix>account_circle</mat-icon>
-      <mat-error>error</mat-error>
-    </mat-form-field>
+    <div class="logo">
+      <ion-img  [src]="['../../../assets/images/Logo-Pagina-Web1.png']"></ion-img>
+    </div>
 
-    <mat-form-field appearance="outline" floatLabel="always">
-      <mat-label>Contraseña</mat-label>
-      <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
-      <mat-icon matPrefix>key</mat-icon>
-      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-        [attr.aria-pressed]="hide">
-        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-      </button>
-    </mat-form-field>
+    <form [formGroup]="formGroup">
+      <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>Cédula</mat-label>
+        <input matInput type="number" formControlName="id" placeholder="40200000000" size="100">
+        <mat-icon matPrefix>account_circle</mat-icon>
+        <mat-error>error</mat-error>
+      </mat-form-field>
 
-    <ion-button type="submit" [disabled]="formGroup.invalid">INICIAR SESIÓN</ion-button>
-    <a class="text-center pt-5 d-block" [routerLink]="['/recuperar-cuenta']">¿Tienes problema para iniciar sesión?</a>
-  </form>
+      <mat-form-field appearance="outline" floatLabel="always">
+        <mat-label>Contraseña</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+        <mat-icon matPrefix>key</mat-icon>
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <ion-button type="submit" [disabled]="formGroup.invalid" (click)="handleButtonClick()">INICIAR SESIÓN</ion-button>
+      <a class="text-center pt-5 d-block" [routerLink]="['/recuperar-cuenta']">¿Tienes problema para iniciar sesión?</a>
+    </form>
+  </div>
+
 
 </ion-content>
-
-

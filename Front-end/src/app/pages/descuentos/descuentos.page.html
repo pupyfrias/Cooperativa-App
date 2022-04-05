@@ -1,5 +1,12 @@
-<app-menu [title]="title"></app-menu>
-
+<!-- <app-menu [title]="title"></app-menu> -->
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{ title }}</ion-title>
+  </ion-toolbar>
+</ion-header>
 
 <div class="container">
     <strong class="capitalize">{{ title }}</strong>

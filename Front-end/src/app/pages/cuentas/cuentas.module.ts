@@ -9,7 +9,7 @@ import { CuentasPageRoutingModule } from './cuentas-routing.module';
 import { CuentasPage } from './cuentas.page';
 import { MenuModule } from 'src/app/components/menu/menu.module';
 import { BarraModule } from 'src/app/components/barra/barra.module';
-
+import { SwiperModule } from 'swiper/angular';
 @NgModule({
   imports: [
     CommonModule,
@@ -17,7 +17,8 @@ import { BarraModule } from 'src/app/components/barra/barra.module';
     IonicModule,
     CuentasPageRoutingModule,
     MenuModule,
-    BarraModule
+    BarraModule,
+    SwiperModule
   ],
   declarations: [CuentasPage]
 })

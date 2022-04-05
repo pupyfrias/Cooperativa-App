@@ -3,6 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
+import { Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -21,7 +24,9 @@ import { BarraModule } from './components/barra/barra.module';
     BrowserAnimationsModule,
     MatIconModule,
     MenuModule,
-    BarraModule
+    BarraModule,
+    HttpClientModule,
+    RouterModule
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

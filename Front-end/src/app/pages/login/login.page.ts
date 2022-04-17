@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoadingController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
+import { MainService } from 'src/app/services/main.service';
+import { catchError } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +20,9 @@ export class LoginPage implements OnInit {
   constructor(
     private fb: FormBuilder,
     private loadingController: LoadingController,
-    private client: HttpClient
+    private client: HttpClient,
+    private service: MainService,
+    private router: Router
   ) { }
 
   get id() { return this.formGroup.get('id'); }
@@ -37,19 +42,41 @@ export class LoginPage implements OnInit {
 
   async handleButtonClick() {
     const loading = await this.loadingController.create({
-      message: 'Please wait...',
+      message: 'Por favor, espere...',
 
     });
 
     await loading.present();
 
-    await this.client.get('http://webscraping.com:8045/api/Items/')
-      .subscribe(data =>{
-        console.log(data);
-      }, null, async () => {
-        await loading.dismiss();
-      });
+    const formData: any = new FormData();
+    formData.append('usuario', `${this.id.value}`);
+    formData.append('clave', `${this.password.value}`);
 
+    await this.client.post<any>('https://coopdgii.com/coopvirtual/App/login', formData)
+    .pipe(catchError(this.service.handleError))
+      .subscribe({
+        next: (data) => {
+
+          if(data.success){
+
+            this.router.navigate(['./cuentas']);
+            console.log(data.data.token);
+          }
+          else{
+            this.service.showToastMessage(data.mensaje);
+            this.id.setErrors({incorrect: true});
+            this.password.setErrors({incorrect: true});
+          }
+        },
+        error: async (error) => {
+          this.service.showToast(error);
+          await loading.dismiss();
+        },
+        complete: async () => {
+          await loading.dismiss();
+        }
+
+      });
   }
 
 }

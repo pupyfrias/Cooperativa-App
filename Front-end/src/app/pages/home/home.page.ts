@@ -4,6 +4,7 @@ import SwiperCore, { SwiperOptions, Pagination, Autoplay } from 'swiper';
 import { SwiperComponent } from 'swiper/angular';
 import { HttpClient } from '@angular/common/http';
 import {MainService} from '../../services/main.service';
+import {catchError} from 'rxjs/operators';
 
 
 SwiperCore.use([Pagination, Autoplay]);
@@ -35,8 +36,8 @@ export class HomePage implements OnInit, AfterContentChecked {
   ngOnInit() {
 
     this.client.get<any[]>('https://coopdgii.com/wp-json/wp/v2/pages')
+    .pipe(catchError(this.service.handleError))
       .subscribe(data => {
-
         data.forEach(element => {
 
           if (element.title.rendered === 'Noticias') {
@@ -59,7 +60,7 @@ export class HomePage implements OnInit, AfterContentChecked {
           }
         });
       }, error => {
-        console.log('Error');
+        this.service.showToast(error);
       }, () => {
         console.log('Done');
       });

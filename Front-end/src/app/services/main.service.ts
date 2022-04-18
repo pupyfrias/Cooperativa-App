@@ -9,6 +9,8 @@ import { ToastController } from '@ionic/angular';
 export class MainService {
 
   public noticia = new BehaviorSubject<any []>([]);
+  public cookie = new BehaviorSubject<boolean>(false);
+
   constructor(private toastController: ToastController) { }
 
   handleError(error: HttpErrorResponse) {

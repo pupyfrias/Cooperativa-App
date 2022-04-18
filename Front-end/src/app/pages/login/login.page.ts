@@ -5,6 +5,8 @@ import { HttpClient } from '@angular/common/http';
 import { MainService } from 'src/app/services/main.service';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+
 
 @Component({
   selector: 'app-login',
@@ -22,25 +24,23 @@ export class LoginPage implements OnInit {
     private loadingController: LoadingController,
     private client: HttpClient,
     private service: MainService,
-    private router: Router
+    private router: Router,
+    private cookie: CookieService
   ) { }
 
   get id() { return this.formGroup.get('id'); }
   get password() { return this.formGroup.get('password'); }
 
-
   ngOnInit() {
 
     this.formGroup = this.fb.group({
-
       id: ['', [Validators.required, Validators.maxLength(12), Validators.minLength(12)]],
       password: ['', [Validators.required]],
-
     });
 
   }
 
-  async handleButtonClick() {
+  async handleButtonClick(): Promise<void> {
     const loading = await this.loadingController.create({
       message: 'Por favor, espere...',
 
@@ -53,19 +53,20 @@ export class LoginPage implements OnInit {
     formData.append('clave', `${this.password.value}`);
 
     await this.client.post<any>('https://coopdgii.com/coopvirtual/App/login', formData)
-    .pipe(catchError(this.service.handleError))
+      .pipe(catchError(this.service.handleError))
       .subscribe({
         next: (data) => {
 
-          if(data.success){
-
+          if (data.success) {
             this.router.navigate(['./cuentas']);
-            console.log(data.data.token);
+            this.cookie.set('token', data.data.token);
+            this.service.cookie.next(true);
           }
-          else{
+          else {
             this.service.showToastMessage(data.mensaje);
-            this.id.setErrors({incorrect: true});
-            this.password.setErrors({incorrect: true});
+            this.id.setErrors({ incorrect: true });
+            this.password.setErrors({ incorrect: true });
+            console.log(this.cookie.get('token'));
           }
         },
         error: async (error) => {

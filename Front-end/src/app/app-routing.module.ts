@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { UserGuard } from './guards/user.guard';
 
 
 
@@ -16,23 +17,28 @@ const routes: Routes = [
   },
   {
     path: 'cuentas',
-    loadChildren: () => import('./pages/cuentas/cuentas.module').then( m => m.CuentasPageModule)
+    loadChildren: () => import('./pages/cuentas/cuentas.module').then( m => m.CuentasPageModule),
+    canActivate: [UserGuard]
   },
   {
     path: 'prestamos',
-    loadChildren: () => import('./pages/prestamos/prestamos.module').then( m => m.PrestamosPageModule)
+    loadChildren: () => import('./pages/prestamos/prestamos.module').then( m => m.PrestamosPageModule),
+    canActivate: [UserGuard]
   },
   {
     path: 'inversiones',
-    loadChildren: () => import('./pages/inversiones/inversiones.module').then( m => m.InversionesPageModule)
+    loadChildren: () => import('./pages/inversiones/inversiones.module').then( m => m.InversionesPageModule),
+    canActivate: [UserGuard]
   },
   {
     path: 'solicitudes',
-    loadChildren: () => import('./pages/solicitudes/solicitudes.module').then( m => m.SolicitudesPageModule)
+    loadChildren: () => import('./pages/solicitudes/solicitudes.module').then( m => m.SolicitudesPageModule),
+    canActivate: [UserGuard]
   },
   {
     path: 'descuentos',
-    loadChildren: () => import('./pages/descuentos/descuentos.module').then( m => m.DescuentosPageModule)
+    loadChildren: () => import('./pages/descuentos/descuentos.module').then( m => m.DescuentosPageModule),
+    canActivate: [UserGuard]
   },
   {
     path: 'noticias',
@@ -48,7 +54,8 @@ const routes: Routes = [
   },
   {
     path: 'tasas',
-    loadChildren: () => import('./pages/tasas/tasas.module').then( m => m.TasasPageModule)
+    loadChildren: () => import('./pages/tasas/tasas.module').then( m => m.TasasPageModule),
+    canActivate: [UserGuard]
   },
   {
     path: 'configuracion',
@@ -65,6 +72,10 @@ const routes: Routes = [
   {
     path: 'contacto',
     loadChildren: () => import('./pages/contacto/contacto.module').then( m => m.ContactoPageModule)
+  },
+  {
+    path: 'logout',
+    loadChildren: () => import('./pages/logout/logout.module').then( m => m.LogoutPageModule)
   }
 
 

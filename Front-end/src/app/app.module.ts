@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { Routes } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -28,7 +28,7 @@ import { BarraModule } from './components/barra/barra.module';
     HttpClientModule,
     RouterModule
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [{ provide: [RouteReuseStrategy, CookieService ], useClass: IonicRouteStrategy,}],
   bootstrap: [AppComponent],
 })
 

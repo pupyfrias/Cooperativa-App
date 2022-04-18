@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { MainService } from './services/main.service';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   public appPages = [
-    { title: 'Login', url: '/login', icon: 'login' },
     { title: 'Cuentas', url: '/cuentas', icon: 'account_balance' },
     { title: 'Prestamos', url: '/prestamos', icon: 'attach_money' },
     { title: 'Inversiones', url: '/inversiones', icon: 'business' },
@@ -19,6 +21,22 @@ export class AppComponent {
     { title: 'Configuración', url: '/configuracion', icon: 'settings' }
   ];
 
-  title='prueba';
-  constructor() {}
+  title = 'prueba';
+  cookie: boolean;
+  constructor(
+    private service: MainService,
+    private cookieService: CookieService
+  ) { }
+
+  ngOnInit() {
+
+    this.service.cookie.subscribe(data => this.cookie = data);
+    if (this.cookieService.get('token')) {
+      this.cookie = true;
+    }
+    else {
+      this.cookie = false;
+    }
+  }
+
 }

@@ -3,8 +3,9 @@ import { AfterContentChecked, Component, OnInit, ViewChild, ViewEncapsulation } 
 import SwiperCore, { SwiperOptions, Pagination, Autoplay } from 'swiper';
 import { SwiperComponent } from 'swiper/angular';
 import { HttpClient } from '@angular/common/http';
-import {MainService} from '../../services/main.service';
-import {catchError} from 'rxjs/operators';
+import { MainService } from '../../services/main.service';
+import { catchError } from 'rxjs/operators';
+import { CookieService } from 'ngx-cookie-service';
 
 
 SwiperCore.use([Pagination, Autoplay]);
@@ -18,7 +19,6 @@ SwiperCore.use([Pagination, Autoplay]);
 export class HomePage implements OnInit, AfterContentChecked {
 
   @ViewChild('swiper') swiper: SwiperComponent;
-
   config: SwiperOptions = {
     slidesPerView: 1,
     spaceBetween: 50,
@@ -26,46 +26,39 @@ export class HomePage implements OnInit, AfterContentChecked {
     autoplay: { delay: 5000 }
   };
 
-  title = 'Home';
+  title = 'Inicio';
   listNoticia: any[] = [];
+  cuentas: any = [];
+  prestamos: any = [];
+
+
   constructor(
     private client: HttpClient,
-    private service: MainService
-    ) { }
+    private service: MainService,
+    private cookieService: CookieService
+  ) { }
 
   ngOnInit() {
 
-    this.client.get<any[]>('https://coopdgii.com/wp-json/wp/v2/pages')
-    .pipe(catchError(this.service.handleError))
-      .subscribe(data => {
-        data.forEach(element => {
+    const formData = new FormData();
+    formData.append('token', this.cookieService.get('token'));
+    this.client.post<any>('https://coopdgii.com/coopvirtual/App/resumen', formData)
+      .pipe(catchError(this.service.handleError))
+      .subscribe({
+        next: (data) => {
 
-          if (element.title.rendered === 'Noticias') {
-            const info: string = element.content.rendered.replace(/(\r\n|\n|\r)/gm, '').replace('  ','');
-            const start = info.search('<article');
-            const end = info.search('</article>				</div>');
-            const list = info.substring(start,end+10).split('</article>');
+          this.cuentas = data.data.cuentas;
+          this.prestamos = data.data.prestamos;
 
-            list.map(value=>{
-              const title = value.substring(value.search('/" >				')+4,value.search('</a>		</h3>')).trim();
-              const imagen =value.substring(value.search('src="')+5,value.search('.jp')+5).replace('"','');//imagen
-              const resumen= value.substring(value.search('<p>')+3,value.search('</p>'));//resumen
-              const link =value.substring(value.search('more" href="')+12,value.search('" >				Leer Más'));//link
-              const date =value.substring(value.search('class="elementor-post-date">')+28,value
-              .search('</span>				</div>')).trim();//fecha
+          console.log(this.cuentas);
+          console.log(this.prestamos);
+        },
+        error: (error) => this.service.showToast(error)
 
-              this.listNoticia.push({title,resumen,link,imagen,date});
-            });
-
-          }
-        });
-      }, error => {
-        this.service.showToast(error);
-      }, () => {
-        console.log('Done');
       });
 
-      this.service.noticia.next(this.listNoticia);
+
+    this.service.noticia.subscribe(data => this.listNoticia = data);
   }
 
   ngAfterContentChecked(): void {

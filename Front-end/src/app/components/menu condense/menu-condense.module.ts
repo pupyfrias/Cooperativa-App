@@ -3,18 +3,20 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
+import { MenuCondenseComponent } from './../menu condense/menu-condense.component';
 
-import { LogoutPageRoutingModule } from './logout-routing.module';
 
-import { LogoutPage } from './logout.page';
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
     IonicModule,
-    LogoutPageRoutingModule
+    CommonModule,
+    FormsModule
   ],
-  declarations: [LogoutPage]
+  declarations: [MenuCondenseComponent],
+  exports:[MenuCondenseComponent]
+
+
 })
-export class LogoutPageModule {}
+
+export class MenuCondenseModule { }

@@ -8,6 +8,7 @@ import { AyudaPageRoutingModule } from './ayuda-routing.module';
 
 import { AyudaPage } from './ayuda.page';
 import { MenuModule } from 'src/app/components/menu/menu.module';
+import { MenuCondenseModule } from 'src/app/components/menu condense/menu-condense.module';
 
 
 @NgModule({
@@ -16,8 +17,9 @@ import { MenuModule } from 'src/app/components/menu/menu.module';
     FormsModule,
     IonicModule,
     AyudaPageRoutingModule,
-    MenuModule
+    MenuModule,
+    MenuCondenseModule
   ],
   declarations: [AyudaPage]
 })
-export class AyudaPageModule {}
+export class AyudaPageModule { }

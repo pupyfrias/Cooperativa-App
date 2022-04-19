@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { UserGuard } from './guards/user.guard';
+import { LogoutPage } from './pages/logout/logout.page';
 
 
 
@@ -13,7 +14,8 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule),
+    canActivate: [UserGuard]
   },
   {
     path: 'cuentas',
@@ -59,7 +61,8 @@ const routes: Routes = [
   },
   {
     path: 'configuracion',
-    loadChildren: () => import('./pages/configuracion/configuracion.module').then( m => m.ConfiguracionPageModule)
+    loadChildren: () => import('./pages/configuracion/configuracion.module').then( m => m.ConfiguracionPageModule),
+    canActivate: [UserGuard]
   },
   {
     path: 'login',
@@ -75,7 +78,7 @@ const routes: Routes = [
   },
   {
     path: 'logout',
-    loadChildren: () => import('./pages/logout/logout.module').then( m => m.LogoutPageModule)
+    component: LogoutPage
   }
 
 

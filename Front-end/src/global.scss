@@ -71,4 +71,10 @@ div a {
 
 .radius-image{
   border-radius: 4%;
+  width: 100%;
+}
+.radius-image.obj-fit{
+
+  height: 300px;
+  object-fit: cover;
 }

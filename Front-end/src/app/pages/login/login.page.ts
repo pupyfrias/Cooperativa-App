@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoadingController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
@@ -28,6 +28,7 @@ export class LoginPage implements OnInit {
     private cookie: CookieService
   ) { }
 
+
   get id() { return this.formGroup.get('id'); }
   get password() { return this.formGroup.get('password'); }
 
@@ -56,9 +57,8 @@ export class LoginPage implements OnInit {
       .pipe(catchError(this.service.handleError))
       .subscribe({
         next: (data) => {
-
           if (data.success) {
-            this.router.navigate(['./cuentas']);
+            this.router.navigate(['./home']);
             this.cookie.set('token', data.data.token);
             this.service.cookie.next(true);
           }

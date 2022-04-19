@@ -14,10 +14,11 @@
       <ion-card-subtitle>{{item.date}}</ion-card-subtitle>
       <ion-card-title>{{item.title}}</ion-card-title>
     </ion-card-header>
+    <img [src]="item.imagen" class="p-3 radius-image" />
     <ion-card-content>
-      {{item.resumen}}
+      {{item.content}}
     </ion-card-content>
-    <img [src]="item.imagen" class="radius-image p-3" />
+    
   </ion-card>
   
   

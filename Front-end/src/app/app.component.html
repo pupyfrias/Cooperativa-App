@@ -6,7 +6,18 @@
           <ion-list-header>Inbox</ion-list-header>
           <ion-note>hi@ionicframework.com</ion-note>
 
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
+          <div *ngIf="cookie">
+            <ion-menu-toggle auto-hide="false" *ngFor="let p of authPages; let i = index">
+              <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false"
+                routerLinkActive="selected">
+                <mat-icon slot="start">{{p.icon}}</mat-icon>
+                <label> {{ p.title }}</label>
+              </ion-item>
+            </ion-menu-toggle>
+          </div>
+        
+
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of pages; let i = index">
             <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false"
               routerLinkActive="selected">
               <mat-icon slot="start">{{p.icon}}</mat-icon>

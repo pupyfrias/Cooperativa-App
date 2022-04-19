@@ -1,45 +1,70 @@
 <app-menu [title]="title"></app-menu>
-<ion-content class='m-5'>
 
- 
-    <ion-card *ngIf="listNoticia.length === 0; else showSwiper">
-      <ion-skeleton-text animated style="height: 300px;"></ion-skeleton-text>
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">{{ title }}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <!-- BEGIN CUENTAS -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        Cuentas
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content *ngFor="let item of cuentas">
+      <ion-card-subtitle>
+        {{item.tipo}} / {{item.idcuenta}}
+      </ion-card-subtitle>
+
+      Balance: {{item.balance_disponible}}
+    </ion-card-content>
+  </ion-card>
+  <!-- END CUENTAS -->
+
+  <!-- BEGIN PRESTAMOS -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        Prestamos
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content *ngFor="let item of prestamos">
+      <ion-card-subtitle>
+        {{item.idprestamo}}
+      </ion-card-subtitle>
+
+      Balance: {{item.balance_prestamo}}
+    </ion-card-content>
+  </ion-card>
+  <!-- END PRESTAMOS -->
+
+  <!-- BEGIN NOTICIAS -->
+  <ion-card *ngIf="listNoticia.length === 0; else showSwiper">
+    <ion-skeleton-text animated style="height: 300px;"></ion-skeleton-text>
+  </ion-card>
+
+  <ng-template #showSwiper>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>
+          Noticias
+        </ion-card-title>
+      </ion-card-header>
+      <swiper #swiper [config]="config" class="p-3">
+        <ng-template swiperSlide *ngFor="let item of listNoticia ">
+          <a [href]="item.link">
+            <img [src]="item.imagen" class="radius-image obj-fit">
+            <h3 class="text-center mt-1"><strong>{{item.title}} </strong> </h3>
+            <p>{{item.excerpt}}</p>
+          </a>
+        </ng-template>
+      </swiper>
     </ion-card>
-     
-    <ng-template #showSwiper>
-      <ion-card>
-        <swiper #swiper [config]="config" class="p-3">
-          <ng-template swiperSlide *ngFor="let item of listNoticia ">
-            <a [href]="item.link">
-              <img [src]="item.imagen" class="radius-image">
-              <h3 class="text-center mt-1"><strong>{{item.title}} </strong> </h3>
-              <p>{{item.resumen}}</p>
-            </a>
-          </ng-template>
-        </swiper>
-      </ion-card>
-    </ng-template>
-    
-    
+  </ng-template>
+  <!-- END NOTICIAS -->
 
 
 </ion-content>
-
-<!-- <ion-footer class="ion-no-border">
-  <ion-toolbar>
-    <ion-title>Footer - No Border</ion-title>
-  </ion-toolbar>
-</ion-footer>
-
-<ion-footer>
-  <ion-toolbar>
-    <ion-title>Footer</ion-title>
-  </ion-toolbar>
-</ion-footer> -->
-
-<!-- Fade Footer -->
-<!-- <ion-footer collapse="fade"  >
-  <ion-toolbar class="bg-danger">
-    <ion-title>Footer</ion-title>
-  </ion-toolbar>
-</ion-footer> -->

@@ -8,6 +8,7 @@ import { DescuentosPageRoutingModule } from './descuentos-routing.module';
 
 import { DescuentosPage } from './descuentos.page';
 import { MenuModule } from 'src/app/components/menu/menu.module';
+import { MenuCondenseModule } from 'src/app/components/menu condense/menu-condense.module';
 
 @NgModule({
   imports: [
@@ -15,8 +16,9 @@ import { MenuModule } from 'src/app/components/menu/menu.module';
     FormsModule,
     IonicModule,
     DescuentosPageRoutingModule,
-    MenuModule
+    MenuModule,
+    MenuCondenseModule
   ],
   declarations: [DescuentosPage]
 })
-export class DescuentosPageModule {}
+export class DescuentosPageModule { }

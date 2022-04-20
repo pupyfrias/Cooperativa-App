@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-sugerencias',
@@ -7,10 +8,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SugerenciasPage implements OnInit {
 
-  title='Sugerencias';
-  constructor() { }
+  @ViewChild('sugerencia') sugerencia: any;
+
+  title = 'Sugerencias';
+  constructor(private toastController: ToastController) { }
 
   ngOnInit() {
   }
 
+  async setSugerencia() {
+
+    console.log(this.sugerencia.value);
+
+    const toast = await this.toastController.create({
+      color: 'success',
+      duration: 3000,
+      message: 'Sugerencia enviado con exito',
+    });
+    this.sugerencia.value = '';
+    await toast.present();
+
+  }
 }

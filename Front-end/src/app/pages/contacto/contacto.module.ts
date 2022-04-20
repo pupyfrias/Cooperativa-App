@@ -8,7 +8,9 @@ import { ContactoPageRoutingModule } from './contacto-routing.module';
 
 import { ContactoPage } from './contacto.page';
 import { MenuModule } from 'src/app/components/menu/menu.module';
-import { MenuComponent } from 'src/app/components/menu/menu.component';
+import { MatIconModule } from '@angular/material/icon';
+import {MatFormFieldModule} from '@angular/material/form-field';
+
 
 @NgModule({
   imports: [
@@ -16,7 +18,9 @@ import { MenuComponent } from 'src/app/components/menu/menu.component';
     FormsModule,
     IonicModule,
     ContactoPageRoutingModule,
-    MenuModule
+    MenuModule,
+    MatIconModule,
+    MatFormFieldModule
   ],
   declarations: [ContactoPage]
 })

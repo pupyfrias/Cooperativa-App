@@ -47,6 +47,14 @@ ion-menu-button {
   transform: translateY(-50%);
 }
 
+.center {
+  text-align: center;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 .container strong {
   font-size: 20px;
   line-height: 26px;
@@ -78,3 +86,4 @@ div a {
   height: 300px;
   object-fit: cover;
 }
+

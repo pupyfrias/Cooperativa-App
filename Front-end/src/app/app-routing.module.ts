@@ -73,7 +73,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/recuperar-cuenta/recuperar-cuenta.module').then( m => m.RecuperarCuentaPageModule)
   },
   {
-    path: 'contacto',
+    path: 'contactos',
     loadChildren: () => import('./pages/contacto/contacto.module').then( m => m.ContactoPageModule)
   },
   {

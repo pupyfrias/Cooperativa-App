@@ -6,8 +6,25 @@
     </ion-toolbar>
   </ion-header>
 
-  <div class="container">
-    <strong class="capitalize">{{ title }}</strong>
-    <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+   <!-- BEGIN PRESTAMOS -->
+   <ion-card *ngFor="let item of prestamos">
+    <ion-card-header>
+      <ion-card-subtitle>
+        {{item.descripcion}} / {{item.idprestamo}}
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Monto: RD$ {{item.monto_prestamo}}</p>
+      <p>Tasa de interés: {{item.tasa_interes}}%</p>
+      <p>Balance: RD$ {{item.balance_prestamo}} </p>
+      <p>Cuotas: RD$ {{item.valor_cuota}} </p>
+      <p>Plazo: {{item.plazo}} </p>
+      <p>Interés calculado: RD$ {{item.monto_interes_calculado}} </p>
+      <p>Intereses Fin del mes: RD$ {{item.monto_intereses_fin_mes}} </p>
+      <p>Fecha Incial: {{item.fecha_prestamo}} </p>
+      <p>Fecha Final: {{item.fecha_vencimiento}} </p>
+      
+    </ion-card-content>
+  </ion-card>
+  <!-- END PRESTAMOS -->
 </ion-content>

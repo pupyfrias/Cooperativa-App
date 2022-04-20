@@ -29,15 +29,9 @@ export class DescuentosPage implements OnInit {
       .pipe(catchError(this.service.handleError))
       .subscribe({
         next: (data) => {
-
-
-
           data.data.map((dat) => {
-
             this.descuentos.push({ mes: dat.mes_str, list: dat.det });
-
           });
-          console.log(this.descuentos);
         },
         error: (error) => this.service.showToast(error)
 

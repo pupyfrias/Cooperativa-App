@@ -8,6 +8,9 @@ import { SugerenciasPageRoutingModule } from './sugerencias-routing.module';
 
 import { SugerenciasPage } from './sugerencias.page';
 import { MenuModule } from 'src/app/components/menu/menu.module';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+
 
 @NgModule({
   imports: [
@@ -15,7 +18,9 @@ import { MenuModule } from 'src/app/components/menu/menu.module';
     FormsModule,
     IonicModule,
     SugerenciasPageRoutingModule,
-    MenuModule
+    MenuModule,
+    MatButtonModule,
+    MatFormFieldModule
   ],
   declarations: [SugerenciasPage]
 })

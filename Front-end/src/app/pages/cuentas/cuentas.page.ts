@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { MainService } from 'src/app/services/main.service';
 
 @Component({
   selector: 'app-cuentas',
@@ -8,10 +10,24 @@ import { Component, OnInit } from '@angular/core';
 export class CuentasPage implements OnInit {
 
   title = 'Cuentas';
-
-  constructor() { }
+  cuentas: any[] = [];
+  subscription: Subscription;
+  constructor(private service: MainService) { }
 
   ngOnInit() {
+
+    this.subscription = this.service.cuentas.subscribe(
+      data => {
+        this.cuentas = data;
+        if (this.cuentas.length === 0) {
+          this.service.getResume();
+        }
+      }
+    );
+  }
+
+  ionViewDidLeave(): void {
+    this.subscription.unsubscribe();
   }
 
 }

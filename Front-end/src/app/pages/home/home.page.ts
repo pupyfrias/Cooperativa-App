@@ -1,11 +1,9 @@
 
-import { AfterContentChecked, Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterContentChecked, Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import SwiperCore, { SwiperOptions, Pagination, Autoplay } from 'swiper';
 import { SwiperComponent } from 'swiper/angular';
-import { HttpClient } from '@angular/common/http';
 import { MainService } from '../../services/main.service';
-import { catchError } from 'rxjs/operators';
-import { CookieService } from 'ngx-cookie-service';
+import { Subscription } from 'rxjs';
 
 
 SwiperCore.use([Pagination, Autoplay]);
@@ -30,35 +28,31 @@ export class HomePage implements OnInit, AfterContentChecked {
   listNoticia: any[] = [];
   cuentas: any = [];
   prestamos: any = [];
-
+  subsList: Array<Subscription> = [];
 
   constructor(
-    private client: HttpClient,
     private service: MainService,
-    private cookieService: CookieService
   ) { }
 
   ngOnInit() {
 
-    const formData = new FormData();
-    formData.append('token', this.cookieService.get('token'));
-    this.client.post<any>('https://coopdgii.com/coopvirtual/App/resumen', formData)
-      .pipe(catchError(this.service.handleError))
-      .subscribe({
-        next: (data) => {
+    this.service.getResume();
+    this.service.getNoticias();
+    const subs1 = this.service.cuentas.subscribe(data => {
+      this.cuentas = data;
+    });
 
-          this.cuentas = data.data.cuentas;
-          this.prestamos = data.data.prestamos;
+    const subs2 = this.service.prestamos.subscribe(data => {
+      this.prestamos = data;
+    });
 
-          console.log(this.cuentas);
-          console.log(this.prestamos);
-        },
-        error: (error) => this.service.showToast(error)
+    const subs3 = this.service.noticia.subscribe(data => {
+      this.listNoticia = data;
+    });
 
-      });
-
-
-    this.service.noticia.subscribe(data => this.listNoticia = data);
+    this.subsList.push(subs1);
+    this.subsList.push(subs2);
+    this.subsList.push(subs3);
   }
 
   ngAfterContentChecked(): void {
@@ -66,6 +60,11 @@ export class HomePage implements OnInit, AfterContentChecked {
       this.swiper.updateSwiper({});
     }
   }
+  ionViewDidLeave(): void {
 
+    this.subsList.forEach(i => {
+      i.unsubscribe();
+    });
+  }
 
 }

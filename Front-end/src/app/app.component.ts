@@ -4,6 +4,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { MainService } from './services/main.service';
 import { HttpClient } from '@angular/common/http';
 import { catchError } from 'rxjs/internal/operators/catchError';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -12,10 +13,10 @@ import { catchError } from 'rxjs/internal/operators/catchError';
 export class AppComponent implements OnInit {
   public pages = [
     { title: 'Noticias', url: '/noticias', icon: 'notifications' },
-    { title: 'Sugerencias', url: '/sugerencias', icon: 'comment' },
-    { title: 'Ayuda', url: '/ayuda', icon: 'help' },
     { title: 'Tasas', url: '/tasas', icon: 'timeline' },
-
+    { title: 'Contactos', url: '/contactos', icon: 'phone' },
+    { title: 'Sugerencias', url: '/sugerencias', icon: 'comment' },
+    { title: 'Ayuda', url: '/ayuda', icon: 'help' }
   ];
   public authPages = [
     { title: 'Inicio', url: '/home', icon: 'home' },
@@ -27,40 +28,32 @@ export class AppComponent implements OnInit {
     { title: 'Configuración', url: '/configuracion', icon: 'settings' }
   ];
 
+  public usuario: string;
+  public cookie: boolean;
+  private subsList: Subscription[] = [];
 
-  title = 'prueba';
-  cookie: boolean;
   constructor(
     private service: MainService,
     private cookieService: CookieService,
-    private client: HttpClient
   ) { }
 
   ngOnInit() {
 
-    this.service.cookie.subscribe(data => this.cookie = data);
+    const subs1 = this.service.cookie.subscribe(data => this.cookie = data);
+    const subs2 = this.service.usuario.subscribe(data => this.usuario = data);
+    this.subsList.push(subs1);
+    this.subsList.push(subs2);
+
     if (this.cookieService.get('token')) {
       this.cookie = true;
     }
     else {
       this.cookie = false;
     }
-
-    this.client.get<any>('https://coopdgii.com/coopvirtual/App/noticias')
-      .pipe(catchError(this.service.handleError))
-      .subscribe({
-        next: (data) => {
-          this.service.noticia.next(data.data);
-        },
-        error: (error) => {
-          this.service.showToast(error);
-        }
-      });
-
   }
 
-  ngDestroy() {
-
+  ionViewDidLeave(){
+    this.subsList.forEach(i=> i.unsubscribe());
   }
 
 }

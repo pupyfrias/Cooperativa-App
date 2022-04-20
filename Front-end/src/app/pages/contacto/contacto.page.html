@@ -1,12 +1,33 @@
 <app-menu [title]="title"></app-menu>
 
-
 <ion-content [fullscreen]="true">
-    <ion-header collapse="condense">
-      <ion-toolbar>
-        <ion-title size="large">{{ title }}</ion-title>
-      </ion-toolbar>
-    </ion-header>
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">{{ title }}</ion-title>
+    </ion-toolbar>
+  </ion-header>
 
-    
+  <div class="container">
+
+    <div class="row">
+      <div class="col">
+        <a href="https://www.google.com/maps/place/Cooperativa+Nacional+de+Servicios+M%C3%BAltiples+de+los+Empleados+de+la+Direcci%C3%B3n+General+de+Impuestos+Internos/@18.4744388,-69.9073558,15.5z/data=!4m5!3m4!1s0x8eaf883235f8b0d1:0x466a5d73de658419!8m2!3d18.474146!4d-69.902872" target="_blank">
+          <mat-icon class="icons"> location_on</mat-icon>
+          <p class="icon-label">Ubicación</p>
+        </a>
+        
+      </div>
+      <div class="col">
+        <a href="tel:8092872700">
+          <mat-icon class="icons"> phone</mat-icon>
+          <p class="icon-label">Teléfono</p>
+        </a>
+        
+      </div>
+    </div>
+
+
+  </div>
+
+
 </ion-content>

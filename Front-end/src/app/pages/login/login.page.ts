@@ -61,6 +61,7 @@ export class LoginPage implements OnInit {
             this.router.navigate(['./home']);
             this.cookie.set('token', data.data.token);
             this.service.cookie.next(true);
+            this.service.usuario.next(data.data.nombre+' '+data.data.apellido);
           }
           else {
             this.service.showToastMessage(data.mensaje);

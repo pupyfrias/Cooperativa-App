@@ -6,8 +6,21 @@
     </ion-toolbar>
   </ion-header>
 
-  <div class="container">
-    <strong class="capitalize">{{ title }}</strong>
-    <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+
+
+
+  <!-- Textarea in an item with a floating label -->
+  <ion-item>
+    <ion-label position="floating">Comentario</ion-label>
+    <ion-textarea rows="15" #sugerencia></ion-textarea>
+  </ion-item>
+  <div class="center mt-5">
+    <ion-button (click)="setSugerencia()" [disabled]="sugerencia.value?.length===0">
+      Enviar
+    </ion-button>
   </div>
+
+
+
+
 </ion-content>

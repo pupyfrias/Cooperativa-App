@@ -8,6 +8,13 @@ import { Component, OnInit } from '@angular/core';
 export class ContactoPage implements OnInit {
 
   title='Contacto';
+  agentes = [
+    {nombre: 'nombre', puesto: 'puesto', telefono:'809-000-0000', correo: 'correo@gmail.com', imagen:'./../../../assets/images/img.png'},
+    {nombre: 'nombre2', puesto: 'puesto', telefono:'809-000-0000', correo: 'correo@gmail.com', imagen:'./../../../assets/images/img.png'},
+    {nombre: 'nombre3', puesto: 'puesto', telefono:'809-000-0000', correo: 'correo@gmail.com', imagen:'./../../../assets/images/img.png'},
+    {nombre: 'nombre4', puesto: 'puesto', telefono:'809-000-0000', correo: 'correo@gmail.com', imagen:'./../../../assets/images/img.png'},
+    {nombre: 'nombre5', puesto: 'puesto', telefono:'809-000-0000', correo: 'correo@gmail.com', imagen:'./../../../assets/images/img.png'},
+  ];
   constructor() { }
 
   ngOnInit() {

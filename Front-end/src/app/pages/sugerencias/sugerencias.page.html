@@ -7,19 +7,60 @@
   </ion-header>
 
 
+  <div class="container">
+
+    <form [formGroup]="formGroup" #formDirective="ngForm">
+      <div>
+        <mat-form-field appearance="outline" class="w-80">
+          <mat-label>Seleccione una Opción</mat-label>
+          <mat-select formControlName="tipo">
+            <mat-option value="sugerencia">Sugerencia</mat-option>
+            <mat-option value="queja">Queja</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field appearance="outline" floatLabel="always" class="w-80">
+          <mat-label>Nombres</mat-label>
+          <input matInput type="text" formControlName="nombres">
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="outline" floatLabel="always" class="w-80">
+          <mat-label>Apelldos</mat-label>
+          <input matInput type="text" formControlName="apellidos">
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="outline" floatLabel="always" class="w-80">
+          <mat-label>Localidad</mat-label>
+          <input matInput type="text" formControlName="localidad">
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="outline" floatLabel="always" class="w-80">
+          <mat-label>Comentario</mat-label>
+          <textarea matInput formControlName="comentario" rows="10"> </textarea>
+        </mat-form-field>
+      </div>
+
+      <ion-button type="submit" [disabled]="formGroup.invalid" (click)="sendSugerencia(formDirective)">Enviar Sugerencia</ion-button>
+    </form>
+
+  </div>
 
 
-  <!-- Textarea in an item with a floating label -->
-  <ion-item>
+  <!--   <ion-item>
     <ion-label position="floating">Comentario</ion-label>
     <ion-textarea rows="15" #sugerencia></ion-textarea>
   </ion-item>
   <div class="center mt-5">
-    <ion-button (click)="setSugerencia()" [disabled]="sugerencia.value?.length===0">
+    <ion-button (click)="sendSugerencia()" [disabled]="sugerencia.value?.length===0">
       Enviar
     </ion-button>
   </div>
-
+ -->
 
 
 

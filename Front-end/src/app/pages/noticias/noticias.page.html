@@ -6,21 +6,25 @@
       <ion-title size="large">{{ title }}</ion-title>
     </ion-toolbar>
   </ion-header>
-  
-    
-  <ion-card *ngFor="let item of listNoticias">
-    
-    <ion-card-header>
-      <ion-card-subtitle>{{item.date}}</ion-card-subtitle>
-      <ion-card-title>{{item.title}}</ion-card-title>
-    </ion-card-header>
-    <img [src]="item.imagen" class="p-3 radius-image" />
-    <ion-card-content>
-      {{item.content}}
-    </ion-card-content>
-    
+
+
+  <ion-card *ngIf="listNoticias.length === 0; else showNoticia">
+    <ion-skeleton-text animated style="height: 100%; min-height: 800px;"></ion-skeleton-text>
   </ion-card>
-  
-  
+  <ng-template #showNoticia>
+    <ion-card *ngFor="let item of listNoticias">
+      <ion-card-header>
+        <ion-card-subtitle>{{item.date}}</ion-card-subtitle>
+        <ion-card-title>{{item.title}}</ion-card-title>
+      </ion-card-header>
+      <img [src]="item.imagen" class="p-3 radius-image" />
+      <ion-card-content>
+        {{item.content}}
+      </ion-card-content>
+
+    </ion-card>
+  </ng-template>
+
+
+
 </ion-content>
- 

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { MainService } from 'src/app/services/main.service';
 
 @Component({
   selector: 'app-solicitudes',
@@ -7,10 +9,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SolicitudesPage implements OnInit {
 
-  title='Solicitudes';
-  constructor() { }
+  title = 'Solicitudes';
+  subs: Subscription;
+  solicitudes: any[] = [];
+  constructor(private service: MainService) { }
 
   ngOnInit() {
+
+    this.subs = this.service.solicitudes.subscribe(data => {
+
+      this.solicitudes = data;
+      if (this.solicitudes.length === 0) {
+        this.service.getSolicitudes();
+      }
+
+    });
+
   }
+
+  ionViewDidLeave(): void {
+    this.subs.unsubscribe();
+  }
+
 
 }

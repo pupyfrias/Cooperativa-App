@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { MainService } from 'src/app/services/main.service';
 
 @Component({
@@ -10,6 +11,7 @@ export class NoticiasPage implements OnInit {
 
   title='Noticias';
   listNoticias: any[]= [];
+  subs: Subscription;
   constructor(
     private service: MainService
 
@@ -17,10 +19,18 @@ export class NoticiasPage implements OnInit {
 
   ngOnInit() {
 
-    this.service.noticia.subscribe(data=>{
 
+    this.subs = this.service.noticia.subscribe(data=>{
       this.listNoticias = data;
+
+      if(this.listNoticias.length ===0){
+        this.service.getNoticias();
+      }
     });
+
   }
 
+  ionViewDidLeave(): void {
+    this.subs.unsubscribe();
+  }
 }

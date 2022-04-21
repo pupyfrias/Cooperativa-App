@@ -9,10 +9,11 @@ import { catchError } from 'rxjs/operators';
 })
 export class MainService {
 
-  public noticia = new BehaviorSubject<any[]>([]);
   public cookie = new BehaviorSubject<boolean>(false);
+  public noticia = new BehaviorSubject<any[]>([]);
   public cuentas = new BehaviorSubject<any[]>([]);
   public prestamos = new BehaviorSubject<any[]>([]);
+  public solicitudes = new BehaviorSubject<any[]>([]);
   public usuario = new BehaviorSubject<string>('');
 
 
@@ -35,7 +36,6 @@ export class MainService {
       .pipe(catchError(this.handleError))
       .subscribe({
         next: (data) => {
-
           this.cuentas.next(data.data.cuentas);
           this.prestamos.next(data.data.prestamos);
         },
@@ -58,6 +58,21 @@ export class MainService {
 
   }
 
+  getSolicitudes(): void {
+    const formData = new FormData();
+    formData.append('token', this.cookieService.get('token'));
+    this.client.post<any>('https://coopdgii.com/coopvirtual/App/solicitudes', formData)
+      .pipe(catchError(this.handleError))
+      .subscribe({
+        next: (data) => {
+          this.solicitudes.next(data.data);
+        },
+        error: (error) => {
+          this.showToast(error);
+        }
+      });
+
+  }
   async showToast(error: number): Promise<void> {
 
     let messageError = '';

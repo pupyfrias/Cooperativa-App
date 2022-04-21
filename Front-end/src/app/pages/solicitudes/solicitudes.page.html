@@ -6,8 +6,28 @@
     </ion-toolbar>
   </ion-header>
 
-  <div class="container">
-    <strong class="capitalize">{{ title }}</strong>
-    <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <!-- BEGIN PRESTAMOS -->
+  <ion-card *ngFor="let item of solicitudes">
+
+    <ion-item>
+      <ion-label>
+        <h2 class="m-0">{{item.nombre}} </h2>
+        <h3 class="m-0">{{item.comentario}} </h3>
+        <p>{{item.fecha}}</p>
+      </ion-label>
+      <ion-note slot="end">
+        {{item.estado}}
+      </ion-note>
+
+    </ion-item>
+
+  </ion-card>
+  <!-- END PRESTAMOS -->
+
+
+  <mat-icon class="add-icon" routerDirection="root" routerLink='./add'>
+    add_circle
+  </mat-icon>
+
+
 </ion-content>

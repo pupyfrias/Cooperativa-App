@@ -6,7 +6,7 @@
         <mat-form-field appearance="outline" class="w-80">
           <mat-label>Seleccione una Opción</mat-label>
           <mat-select #select (selectionChange)="selectChange($event.value,formDirective)" formControlName="tipo">
-            <mat-option *ngFor="let item of models" [value]="item.id" data-list=item.id>
+            <mat-option *ngFor="let item of models" [value]="item.id">
               {{item.nombre}}
             </mat-option>
           </mat-select>
@@ -21,20 +21,39 @@
           </div>
 
           <ng-template #second>
+          
             <div *ngIf="item.tipo ==='select'; else third">
+              <mat-form-field class="w-80" appearance="outline">
+                <mat-label>{{item.nombre}}</mat-label>
+                <mat-chip-list #chipList aria-label="Fruit selection">
+                  <mat-chip *ngFor="let chip of chipsList" (removed)="remove(chip)">
+                    {{chip.name}}
+                    <button matChipRemove>
+                      <mat-icon>cancel</mat-icon>
+                    </button>
+                  </mat-chip>
+                  <input placeholder="Añadir ..."
+                         [matChipInputFor]="chipList"
+                         [matChipInputAddOnBlur]="addOnBlur"
+                         (matChipInputTokenEnd)="add($event)" [formControlName]="item.nombre">
+                </mat-chip-list>
+              </mat-form-field>
+            </div>
+
+
+          </ng-template>
+
+          <ng-template #third>
+            <div *ngIf="item.tipo ==='textarea'; else fourth">
               <mat-form-field appearance="outline" class="w-80">
-                <mat-label>Seleccione una Opción</mat-label>
-                <mat-select [formControlName]="item.nombre">
-                  <mat-option value="1">
-                    {{item.nombre}}
-                  </mat-option>
-                </mat-select>
+                <mat-label>{{item.nombre}}</mat-label>
+                <textarea matInput [formControlName]="item.nombre" rows="10"> </textarea>
               </mat-form-field>
             </div>
 
           </ng-template>
 
-          <ng-template #third>
+          <ng-template #fourth>
             <mat-form-field appearance="outline" floatLabel="always" class="w-80">
               <mat-label>{{item.nombre}}</mat-label>
               <input matInput [type]="item.tipo" [formControlName]="item.nombre">
@@ -46,7 +65,8 @@
         </div>
       </div>
 
-
+      
+      
 
       <ion-button type="submit" (click)="sendSolicitud(formDirective)" [disabled]="formGroup.invalid">
         Enviar Sugerencia

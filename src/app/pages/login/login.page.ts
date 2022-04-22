@@ -64,7 +64,7 @@ export class LoginPage implements OnInit {
             this.service.usuario.next(data.data.nombre+' '+data.data.apellido);
           }
           else {
-            this.service.showToastMessage(data.mensaje);
+            this.service.showToastMessage(data.mensaje,'danger');
             this.id.setErrors({ incorrect: true });
             this.password.setErrors({ incorrect: true });
             console.log(this.cookie.get('token'));

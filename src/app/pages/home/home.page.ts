@@ -37,7 +37,7 @@ export class HomePage implements OnInit, AfterContentChecked {
   ngOnInit() {
 
     this.service.getResume();
-    this.service.getNoticias();
+    this.service.getData('noticias');
     const subs1 = this.service.cuentas.subscribe(data => {
       this.cuentas = data;
     });

@@ -11,6 +11,7 @@ export class MainService {
 
   public cookie = new BehaviorSubject<boolean>(false);
   public noticia = new BehaviorSubject<any[]>([]);
+  public modelo = new BehaviorSubject<any[]>([]);
   public cuentas = new BehaviorSubject<any[]>([]);
   public prestamos = new BehaviorSubject<any[]>([]);
   public solicitudes = new BehaviorSubject<any[]>([]);
@@ -44,12 +45,19 @@ export class MainService {
       });
   }
 
-  getNoticias(): void {
-    this.client.get<any>('https://coopdgii.com/coopvirtual/App/noticias')
+  getData(param: string): void {
+    this.client.get<any>('https://coopdgii.com/coopvirtual/App/' + param)
       .pipe(catchError(this.handleError))
       .subscribe({
         next: (data) => {
-          this.noticia.next(data.data);
+
+          if (param === 'noticias') {
+            this.noticia.next(data.data);
+          }
+          else if (param === 'solicitudes_tipo') {
+            this.modelo.next(data.data);
+          }
+
         },
         error: (error) => {
           this.showToast(error);
@@ -90,11 +98,23 @@ export class MainService {
     await toast.present();
   }
 
-  async showToastMessage(messageError: string): Promise<void> {
+  async showToastMessage(messageError: string, colorToast: string): Promise<void> {
     const toast = await this.toastController.create({
-      color: 'danger',
+      color: colorToast,
       duration: 3000,
       message: messageError,
+    });
+
+    await toast.present();
+  }
+
+  async print(messages: string): Promise<void> {
+    const toast = await this.toastController.create({
+      color: 'success',
+      duration: 5000,
+      message: messages,
+      cssClass: 'toast-custom-class',
+      position: 'middle'
     });
 
     await toast.present();

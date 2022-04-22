@@ -24,7 +24,7 @@ export class NoticiasPage implements OnInit {
       this.listNoticias = data;
 
       if(this.listNoticias.length ===0){
-        this.service.getNoticias();
+        this.service.getData('noticias');
       }
     });
 

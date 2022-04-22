@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
+import { MainService } from 'src/app/services/main.service';
 
 
 @Component({
@@ -14,8 +15,8 @@ export class SugerenciasPage implements OnInit {
 
   title = 'Sugerencias';
   constructor(
-    private toastController: ToastController,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private service: MainService
 
   ) { }
 
@@ -38,16 +39,9 @@ export class SugerenciasPage implements OnInit {
   async sendSugerencia(formDirective: FormGroupDirective) {
 
     if (this.formGroup.valid) {
-      console.log(this.formGroup.value);
-      const toast = await this.toastController.create({
-        color: 'success',
-        duration: 3000,
-        message: 'Sugerencia enviado con exito',
-      });
-      formDirective.resetForm();
-      await toast.present();
+
+      //add date
+      this.service.print(JSON.stringify(this.formGroup.value).replace(/,/g,',\n'));
     }
-
-
   }
 }

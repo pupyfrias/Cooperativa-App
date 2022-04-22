@@ -15,7 +15,7 @@
               </ion-item>
             </ion-menu-toggle>
           </div>
-        
+
 
           <ion-menu-toggle auto-hide="false" *ngFor="let p of pages; let i = index">
             <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false"
@@ -25,14 +25,29 @@
             </ion-item>
           </ion-menu-toggle>
 
+          <ion-menu-toggle>
+            <ion-item lines="full">
+              <ion-icon slot="start" name="moon"></ion-icon>
+              <ion-label>
+                Modo Oscuro
+              </ion-label>
+              <ion-toggle id="themeToggle" (ionChange)="toggleChange($event)" slot="end" [checked]="checked">
+              </ion-toggle>
+            </ion-item>
+          </ion-menu-toggle>
+
           <ion-menu-toggle auto-hide="false">
             <ion-item routerDirection="root" [routerLink]="!cookie ?['/login']: ['/logout']" lines="none" detail="false"
               routerLinkActive="selected">
               <mat-icon slot="start">login</mat-icon>
-              <label *ngIf="!cookie">  Iniciar Sesión</label>
-              <label *ngIf="cookie">  Cerrar Sesión</label>
+              <label *ngIf="!cookie"> Iniciar Sesión</label>
+              <label *ngIf="cookie"> Cerrar Sesión</label>
             </ion-item>
           </ion-menu-toggle>
+       
+         
+
+
         </ion-list>
       </ion-content>
     </ion-menu>

@@ -10,12 +10,13 @@ import { catchError } from 'rxjs/operators';
 export class MainService {
 
   public cookie = new BehaviorSubject<boolean>(false);
+  public tabsHide = new BehaviorSubject<boolean>(false);
   public noticia = new BehaviorSubject<any[]>([]);
   public modelo = new BehaviorSubject<any[]>([]);
   public cuentas = new BehaviorSubject<any[]>([]);
   public prestamos = new BehaviorSubject<any[]>([]);
   public solicitudes = new BehaviorSubject<any[]>([]);
-  public usuario = new BehaviorSubject<string>('');
+  public usuario = new BehaviorSubject<string>(this.cookieService.get('user'));
 
 
 

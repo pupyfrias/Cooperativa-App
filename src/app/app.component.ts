@@ -1,31 +1,36 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { MainService } from './services/main.service';
-import { HttpClient } from '@angular/common/http';
-import { catchError } from 'rxjs/internal/operators/catchError';
 import { Subscription } from 'rxjs';
-import { throwIfEmpty } from 'rxjs/operators';
+import { OverlayContainer } from '@angular/cdk/overlay';
+
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent implements OnInit {
+
+
+  @HostBinding('class') componentClass: any;
+
   public pages = [
-    { title: 'Noticias', url: '/noticias', icon: 'notifications' },
-    { title: 'Tasas', url: '/tasas', icon: 'timeline' },
-    { title: 'Contactos', url: '/contactos', icon: 'phone' },
-    { title: 'Sugerencias', url: '/sugerencias', icon: 'comment' },
-    { title: 'Ayuda', url: '/ayuda', icon: 'help' }
+    { title: 'Noticias', url: '/noticias', icon: 'newspaper' },
+    { title: 'Videos', url: '/videos', icon: 'caret-forward-circle' },
+    { title: 'Tasas', url: '/tasas', icon: 'logo-usd' },
+    { title: 'Contactos', url: '/contactos', icon: 'call' },
+    { title: 'Sugerencias', url: '/sugerencias', icon: 'chatbox-ellipses' },
+    { title: 'Preguntas Frecuentes', url: '/preguntas-frecuentes', icon: 'help-circle-outline' },
+    { title: 'Ayuda', url: '/ayuda', icon: 'help-buoy' }
   ];
   public authPages = [
     { title: 'Inicio', url: '/home', icon: 'home' },
-    { title: 'Cuentas', url: '/cuentas', icon: 'account_balance' },
-    { title: 'Prestamos', url: '/prestamos', icon: 'attach_money' },
+    { title: 'Cuentas', url: '/cuentas', icon: 'wallet' },
+    { title: 'Prestamos', url: '/prestamos', icon: 'cash' },
     { title: 'Inversiones', url: '/inversiones', icon: 'business' },
-    { title: 'Solicitudes', url: '/solicitudes', icon: 'assignment_returned' },
-    { title: 'Descuentos', url: '/descuentos', icon: 'money_off' },
+    { title: 'Solicitudes', url: '/solicitudes', icon: 'create' },
+    { title: 'Descuentos', url: '/descuentos', icon: 'trending-down' },
     { title: 'Configuración', url: '/configuracion', icon: 'settings' }
   ];
 
@@ -35,22 +40,28 @@ export class AppComponent implements OnInit {
   public usuario: string;
   public cookie: boolean;
   public checked: boolean;
+  public tabsHide: boolean;
   private subsList: Subscription[] = [];
 
 
   constructor(
     private service: MainService,
     private cookieService: CookieService,
+    public overlayContainer: OverlayContainer
   ) { }
 
   ngOnInit() {
 
     this.checked = this.cookieService.check('darkMode');
-    this.changeModo(this.checked);
+    this.changeMode(this.checked);
     const subs1 = this.service.cookie.subscribe(data => this.cookie = data);
-    const subs2 = this.service.usuario.subscribe(data => this.usuario = data);
+    const subs2 = this.service.tabsHide.subscribe(data => this.tabsHide = data);
+    const subs3 = this.service.usuario.subscribe(data => this.usuario = data);
     this.subsList.push(subs1);
     this.subsList.push(subs2);
+    this.subsList.push(subs3);
+
+
 
     if (this.cookieService.get('token')) {
       this.cookie = true;
@@ -67,22 +78,31 @@ export class AppComponent implements OnInit {
   toggleChange(event: any) {
 
     const checked = event.detail.checked;
-    // Listen for the toggle check/uncheck to toggle the dark class on the <body>
-    document.body.classList.toggle('dark', checked);
-    // Listen for changes to the prefers-color-scheme media query
-    this.prefersDark.addListener((e) => this.checkToggle(e.matches));
+    this.changeMode(checked);
 
-    if(checked){
-      this.cookieService.set('darkMode','true');
+    if (checked) {
+      this.cookieService.set('darkMode', 'true');
     }
-    else{
+    else {
       this.cookieService.delete('darkMode');
     }
   }
 
-  changeModo(checked: boolean) {
+  changeMode(checked: boolean) {
     document.body.classList.toggle('dark', checked);
     this.prefersDark.addListener((e) => this.checkToggle(e.matches));
+
+    if (checked) {
+      this.overlayContainer.getContainerElement().classList.add('mat-theme-dark');
+      this.componentClass = 'mat-theme-dark';
+      console.log('dark');
+    }
+    else {
+      this.overlayContainer.getContainerElement().classList.add('mat-theme-light');
+      this.componentClass = 'mat-theme-light';
+      console.log('light');
+
+    }
   }
 
   // Called when the app loads

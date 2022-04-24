@@ -23,8 +23,10 @@ export class LogoutPage{
 
 
   ionViewWillEnter() {
-    this.cookie.deleteAll();
+    this.cookie.delete('token');
+    this.cookie.delete('user');
     this.service.cookie.next(false);
+    this.service.usuario.next('');
     this.router.navigate(['/login']);
   }
 }

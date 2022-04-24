@@ -7,6 +7,7 @@ import { MainService } from 'src/app/services/main.service';
 import { CookieService } from 'ngx-cookie-service';
 import { HttpClient } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-add',
   templateUrl: './add.component.html',
@@ -29,11 +30,12 @@ export class AddComponent implements OnInit {
     private fb: FormBuilder,
     private service: MainService,
     private cookieService: CookieService,
-    private client: HttpClient
+    private client: HttpClient,
+    private router: Router
   ) { }
 
   ngOnInit() {
-
+    this.service.tabsHide.next(true);
     this.service.getData('solicitudes_tipo');
     this.service.modelo.subscribe(data => {
       data.forEach(i => {
@@ -48,6 +50,11 @@ export class AddComponent implements OnInit {
       });
   }
 
+
+  ionViewDidLeave(event: any) {
+    this.service.tabsHide.next(false);
+
+  }
   sendSolicitud(formDirective: FormGroupDirective) {
 
     const dataList = [];
@@ -66,7 +73,6 @@ export class AddComponent implements OnInit {
       this.formGroup.get('Información del Garante').setValue(dataJoin.join(' | '));
     }
 
-    console.log(formDirective.value);
     Object.keys(this.formGroup.controls).forEach(key => {
 
       if (key !== 'tipo') {
@@ -85,7 +91,9 @@ export class AddComponent implements OnInit {
       .subscribe({
         next: (data) => {
           if (data.success) {
-            formDirective.resetForm();
+            //formDirective.resetForm();
+            this.service.getSolicitudes();
+            this.router.navigateByUrl('/solicitudes');
             this.service.showToastMessage('Solicitud enviado con exito', 'success');
           }
           else {

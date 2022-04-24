@@ -32,7 +32,10 @@
       </div>
   
       <ion-button type="submit" [disabled]="formGroup.invalid" (click)="handleButtonClick()">INICIAR SESIÓN</ion-button>
-      <a class="text-center pt-5 d-block" [routerLink]="['/recuperar-cuenta']">¿Tienes problema para iniciar sesión?</a>
+      <div class="pt-5">
+        <a class="text-center " [routerLink]="['/recuperar-cuenta']">¿Tienes problema para iniciar sesión?</a>
+      </div>
+      
     </form>
   </div>
 

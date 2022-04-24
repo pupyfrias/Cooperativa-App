@@ -60,14 +60,15 @@ export class LoginPage implements OnInit {
           if (data.success) {
             this.router.navigate(['./home']);
             this.cookie.set('token', data.data.token);
+            this.cookie.set('user', data.data.nombre+' '+data.data.apellido);
             this.service.cookie.next(true);
             this.service.usuario.next(data.data.nombre+' '+data.data.apellido);
+
           }
           else {
             this.service.showToastMessage(data.mensaje,'danger');
             this.id.setErrors({ incorrect: true });
             this.password.setErrors({ incorrect: true });
-            console.log(this.cookie.get('token'));
           }
         },
         error: async (error) => {

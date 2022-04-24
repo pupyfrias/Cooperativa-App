@@ -16,7 +16,9 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { Solicitudes } from './solicitudes-models';
-import {MatChipsModule} from '@angular/material/chips';
+import { MatChipsModule } from '@angular/material/chips';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
+import { BarraModule } from 'src/app/components/barra/barra.module';
 
 
 @NgModule({
@@ -33,9 +35,11 @@ import {MatChipsModule} from '@angular/material/chips';
     MatOptionModule,
     MatSelectModule,
     MatInputModule,
-    MatChipsModule
+    MatChipsModule,
+    MaterialFileInputModule,
+    BarraModule
   ],
   declarations: [SolicitudesPage, AddComponent],
   providers: [Solicitudes]
 })
-export class SolicitudesPageModule {}
+export class SolicitudesPageModule { }

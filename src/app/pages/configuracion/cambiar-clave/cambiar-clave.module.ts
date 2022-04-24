@@ -4,30 +4,30 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { RecuperarCuentaPageRoutingModule } from './recuperar-cuenta-routing.module';
+import { CambiarClavePageRoutingModule } from './cambiar-clave-routing.module';
 
-import { RecuperarCuentaPage } from './recuperar-cuenta.page';
-import { MenuModule } from 'src/app/components/menu/menu.module';
+import { CambiarClavePage } from './cambiar-clave.page';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MenuModule } from 'src/app/components/menu/menu.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RecuperarCuentaPageRoutingModule,
-    MenuModule,
+    CambiarClavePageRoutingModule,
     ReactiveFormsModule,
     MatIconModule,
     MatButtonModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatInputModule
+    MatInputModule,
+    MenuModule
   ],
-  declarations: [RecuperarCuentaPage]
+  declarations: [CambiarClavePage]
 })
-export class RecuperarCuentaPageModule {}
+export class CambiarClavePageModule {}

@@ -31,13 +31,21 @@
         Prestamos
       </ion-card-title>
     </ion-card-header>
-    <ion-card-content *ngFor="let item of prestamos">
-      <ion-card-subtitle>
-        {{item.idprestamo}}
-      </ion-card-subtitle>
 
-      Balance: {{item.balance_prestamo}}
-    </ion-card-content>
+    <ion-item detail *ngFor="let item of prestamos">
+      <ion-label>
+        {{item.idprestamo}}
+      </ion-label>
+    
+        <p>
+          Balance: {{item.balance_prestamo}}
+        </p>
+
+    </ion-item>
+
+
+
+
   </ion-card>
   <!-- END PRESTAMOS -->
 

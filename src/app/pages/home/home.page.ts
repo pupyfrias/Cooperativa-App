@@ -1,5 +1,5 @@
 
-import { AfterContentChecked, Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterContentChecked, Component, OnInit, ViewChild, ViewEncapsulation, Renderer2 } from '@angular/core';
 import SwiperCore, { SwiperOptions, Pagination, Autoplay } from 'swiper';
 import { SwiperComponent } from 'swiper/angular';
 import { MainService } from '../../services/main.service';

@@ -45,23 +45,10 @@
         </mat-form-field>
       </div>
 
-      <ion-button type="submit" [disabled]="formGroup.invalid" (click)="sendSugerencia(formDirective)">Enviar Sugerencia</ion-button>
+      <ion-button type="submit" [disabled]="formGroup.invalid" class="mb-5"
+       (click)="sendSugerencia(formDirective)">Enviar Sugerencia</ion-button>
     </form>
 
   </div>
-
-
-  <!--   <ion-item>
-    <ion-label position="floating">Comentario</ion-label>
-    <ion-textarea rows="15" #sugerencia></ion-textarea>
-  </ion-item>
-  <div class="center mt-5">
-    <ion-button (click)="sendSugerencia()" [disabled]="sugerencia.value?.length===0">
-      Enviar
-    </ion-button>
-  </div>
- -->
-
-
 
 </ion-content>

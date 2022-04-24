@@ -1,3 +1,13 @@
+
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="Atrás" defaultHref="/solicitudes"></ion-back-button>
+    </ion-buttons>
+    <ion-title >Solicitudes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content [fullscreen]="true">
 
   <div class="text-center mt-5">
@@ -15,13 +25,20 @@
 
       <div *ngIf="select.selected">
         <div *ngFor="let item of patron">
-          <div *ngIf="item.tipo ==='file'; else second" class="m-2 file">
-            <mat-label>Archivo</mat-label>
-            <input type="file" class="w-80" [formControlName]="item.nombre">
+          <div *ngIf="item.tipo ==='file'; else second">
+
+            <mat-form-field appearance="outline" class="w-80" floatLabel="always">
+
+              <mat-label>{{item.nombre}}</mat-label>
+              <ngx-mat-file-input [formControlName]="item.nombre"></ngx-mat-file-input>
+            </mat-form-field>
+
+
+
           </div>
 
           <ng-template #second>
-          
+
             <div *ngIf="item.tipo ==='select'; else third">
               <mat-form-field class="w-80" appearance="outline">
                 <mat-label>{{item.nombre}}</mat-label>
@@ -32,10 +49,8 @@
                       <mat-icon>cancel</mat-icon>
                     </button>
                   </mat-chip>
-                  <input placeholder="Añadir ..."
-                         [matChipInputFor]="chipList"
-                         [matChipInputAddOnBlur]="addOnBlur"
-                         (matChipInputTokenEnd)="add($event)" [formControlName]="item.nombre">
+                  <input placeholder="Añadir ..." [matChipInputFor]="chipList" [matChipInputAddOnBlur]="addOnBlur"
+                    (matChipInputTokenEnd)="add($event)" [formControlName]="item.nombre">
                 </mat-chip-list>
               </mat-form-field>
             </div>
@@ -65,10 +80,11 @@
         </div>
       </div>
 
-      
-      
 
-      <ion-button type="submit" (click)="sendSolicitud(formDirective)" [disabled]="formGroup.invalid">
+
+
+      <ion-button type="submit" (click)="sendSolicitud(formDirective)" class="mb-5" 
+      [disabled]="formGroup.invalid">
         Enviar Sugerencia
       </ion-button>
     </form>

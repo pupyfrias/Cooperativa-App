@@ -1,11 +1,11 @@
-<ion-tabs>
-  <ion-tab-bar slot="bottom">
+<ion-tabs >
+  <ion-tab-bar slot="bottom" [hidden]="tabsHide">
     <ion-tab-button tab="solicitudes">
-      <mat-icon >assignment_returned</mat-icon>
+      <ion-icon name="create"></ion-icon>
       <ion-label>Solicitudes</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="contacto">
+    <ion-tab-button tab="contactos">
       <ion-icon name="call"></ion-icon>
       <ion-label>Contacto</ion-label>
     </ion-tab-button>

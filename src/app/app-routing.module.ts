@@ -9,7 +9,7 @@ const routes: Routes = [
 
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'home',
     pathMatch: 'full'
   },
   {
@@ -79,6 +79,19 @@ const routes: Routes = [
   {
     path: 'logout',
     component: LogoutPage
+  },
+  {
+    path: 'cambiar-clave',
+    loadChildren: () => import('./pages/configuracion/cambiar-clave/cambiar-clave.module').then( m => m.CambiarClavePageModule),
+    canActivate: [UserGuard]
+  },
+  {
+    path: 'preguntas-frecuentes',
+    loadChildren: () => import('./pages/preguntas-frecuentes/preguntas-frecuentes.module').then( m => m.PreguntasFrecuentesPageModule)
+  },
+  {
+    path: 'videos',
+    loadChildren: () => import('./pages/videos/videos.module').then( m => m.VideosPageModule)
   }
 
 

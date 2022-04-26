@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { Solicitudes } from '../solicitudes-models';
-import { AbstractControl } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MainService } from 'src/app/services/main.service';
-import { CookieService } from 'ngx-cookie-service';
 import { HttpClient } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
+import { StorageService } from 'src/app/services/storage.service';
+
+
+
 @Component({
   selector: 'app-add',
   templateUrl: './add.component.html',
@@ -29,14 +32,24 @@ export class AddComponent implements OnInit {
     private solicitudes: Solicitudes,
     private fb: FormBuilder,
     private service: MainService,
-    private cookieService: CookieService,
+    private storage: StorageService,
     private client: HttpClient,
-    private router: Router
+    private router: Router,
+    private loadingController: LoadingController
+
   ) { }
 
   ngOnInit() {
+    this.formGroup = this.fb.group(
+      {
+        tipo: ['', Validators.required]
+      });
+  }
+
+  ionViewWillEnter() {
     this.service.tabsHide.next(true);
     this.service.getData('solicitudes_tipo');
+
     this.service.modelo.subscribe(data => {
       data.forEach(i => {
         if (i.activo === 'si') {
@@ -44,21 +57,23 @@ export class AddComponent implements OnInit {
         }
       });
     });
-    this.formGroup = this.fb.group(
-      {
-        tipo: ['', Validators.required]
-      });
+
   }
 
-
-  ionViewDidLeave(event: any) {
+  ionViewWillLeave() {
     this.service.tabsHide.next(false);
+    this.formGroup.reset();
 
   }
-  sendSolicitud(formDirective: FormGroupDirective) {
+  async sendSolicitud(formDirective: FormGroupDirective) {
 
     const dataList = [];
     const dataJoin: string[] = [];
+    const loading = await this.loadingController.create({
+      message: 'Cargando',
+
+    });
+    await loading.present();
 
     if (this.formGroup.get('tipo').value === '8') {
       this.chipsList.map(i => {
@@ -82,17 +97,17 @@ export class AddComponent implements OnInit {
 
     //formData
     const formData = new FormData();
-    formData.append('token', this.cookieService.get('token'));
+    formData.append('token', await this.storage.get('token'));
     formData.append('tipo', this.formGroup.get('tipo').value);
     formData.append('datos', `[${dataList.join(',')}]`);
 
     this.client.post<any>('https://coopdgii.com/coopvirtual/App/solicitudes_registro', formData)
       .pipe(catchError(this.service.handleError))
       .subscribe({
-        next: (data) => {
+        next: async (data) => {
           if (data.success) {
             //formDirective.resetForm();
-            this.service.getSolicitudes();
+            await this.service.getSolicitudes();
             this.router.navigateByUrl('/solicitudes');
             this.service.showToastMessage('Solicitud enviado con exito', 'success');
           }
@@ -100,7 +115,13 @@ export class AddComponent implements OnInit {
             this.service.showToastMessage(data.debug.toString(), 'danger');
           }
         },
-        error: (error) => this.service.showToast(error)
+        error: async (error) => {
+          this.service.showToast(error);
+          await loading.dismiss();
+        },
+        complete: async ()=>{
+          await loading.dismiss();
+        }
 
       });
 

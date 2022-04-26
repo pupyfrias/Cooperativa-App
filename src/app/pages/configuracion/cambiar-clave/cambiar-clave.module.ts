@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MenuModule } from 'src/app/components/menu/menu.module';
+import { BackButtonCustomModule } from 'src/app/components/back-button-custom/back-button-custom.module';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import { MenuModule } from 'src/app/components/menu/menu.module';
     MatFormFieldModule,
     MatSelectModule,
     MatInputModule,
-    MenuModule
+    MenuModule,
+    BackButtonCustomModule
   ],
   declarations: [CambiarClavePage]
 })

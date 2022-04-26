@@ -1,30 +1,27 @@
-import {
-
-  Component,
-  OnInit
-} from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MainService } from 'src/app/services/main.service';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-logout',
   template: '',
 })
-export class LogoutPage{
+export class LogoutPage {
   subscription: Subscription;
 
   constructor(
-    private cookie: CookieService,
+    private storage: StorageService,
     private router: Router,
-    private service: MainService
+    private service: MainService,
   ) { }
 
 
-  ionViewWillEnter() {
-    this.cookie.delete('token');
-    this.cookie.delete('user');
+  async ionViewWillEnter() {
+
+    await this.storage.remove('token');
+    await this.storage.remove('user');
     this.service.cookie.next(false);
     this.service.usuario.next('');
     this.router.navigate(['/login']);

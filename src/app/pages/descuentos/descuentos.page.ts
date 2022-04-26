@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
+import { LoadingController } from '@ionic/angular';
 import { catchError } from 'rxjs/operators';
 import { MainService } from 'src/app/services/main.service';
+import { StorageService } from 'src/app/services/storage.service';
 
 
 @Component({
@@ -16,26 +17,45 @@ export class DescuentosPage implements OnInit {
   descuentos: any[] = [];
 
   constructor(
-    private cookieService: CookieService,
+    private storage: StorageService,
     private service: MainService,
-    private client: HttpClient
+    private client: HttpClient,
+    private loadingController: LoadingController
   ) { }
 
   ngOnInit() {
+  }
 
-    const formData = new FormData();
-    formData.append('token', this.cookieService.get('token'));
-    this.client.post<any>('https://coopdgii.com/coopvirtual/App/descuentos', formData)
-      .pipe(catchError(this.service.handleError))
-      .subscribe({
-        next: (data) => {
-          data.data.map((dat) => {
-            this.descuentos.push({ mes: dat.mes_str, list: dat.det });
-          });
-        },
-        error: (error) => this.service.showToast(error)
+  async ionViewWillEnter(): Promise<void> {
 
-      });
+    const loading = await this.loadingController.create({
+      message: 'Cargando',
+    });
+    await loading.present();
+
+    if (this.descuentos.length === 0) {
+
+      const formData = new FormData();
+      formData.append('token', await this.storage.get('token'));
+      this.client.post<any>('https://coopdgii.com/coopvirtual/App/descuentos', formData)
+        .pipe(catchError(this.service.handleError))
+        .subscribe({
+          next: async (data) => {
+            data.data.map((dat) => {
+              this.descuentos.push({ mes: dat.mes_str, list: dat.det });
+            });
+          },
+          error: (error) => { this.service.showToast(error);},
+          complete: async () => {
+            await loading.dismiss();
+          }
+
+        });
+    }
+    else {
+      await loading.dismiss();
+    }
+
   }
 
 }

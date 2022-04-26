@@ -10,6 +10,8 @@ import { CuentasPage } from './cuentas.page';
 import { MenuModule } from 'src/app/components/menu/menu.module';
 import { BarraModule } from 'src/app/components/barra/barra.module';
 import { SwiperModule } from 'swiper/angular';
+import { DetailsCuentaComponent } from './details-cuenta/details-cuenta.component';
+import { BackButtonCustomModule } from 'src/app/components/back-button-custom/back-button-custom.module';
 @NgModule({
   imports: [
     CommonModule,
@@ -18,8 +20,9 @@ import { SwiperModule } from 'swiper/angular';
     CuentasPageRoutingModule,
     MenuModule,
     BarraModule,
-    SwiperModule
+    SwiperModule,
+    BackButtonCustomModule
   ],
-  declarations: [CuentasPage]
+  declarations: [CuentasPage, DetailsCuentaComponent]
 })
 export class CuentasPageModule {}

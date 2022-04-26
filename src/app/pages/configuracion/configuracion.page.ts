@@ -22,19 +22,6 @@ export class ConfiguracionPage implements OnInit {
   get password() { return this.formGroup.get('email'); }
   ngOnInit() {
 
-    this.formGroup = this.fb.group({
-      id: ['', [Validators.required, Validators.maxLength(12), Validators.minLength(12)]],
-      email: ['', [Validators.required, Validators.email]],
-    });
-
-  }
-
-  submit() {
-
-    if (this.formGroup.valid) {
-
-      this.service.print(JSON.stringify(this.formGroup.value));
-    }
   }
 
 }

@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class TasasPage implements OnInit {
 
   title = 'Tasas';
+  date =new Date().toDateString();
   constructor() { }
 
   ngOnInit() {

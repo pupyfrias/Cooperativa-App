@@ -26,24 +26,29 @@ export class CambiarClavePage implements OnInit {
   get claveVerificar() { return this.formGroup.get('claveVerificar'); }
 
   ngOnInit() {
-    this.service.tabsHide.next(true);
+
     this.formGroup = this.fb.group({
-      claveActual: ['', [Validators.required]],
-      claveNueva: ['', [Validators.required]],
-      claveVerificar: ['', [Validators.required]]
+      claveActual: ['', [Validators.required, Validators.maxLength(30)]],
+      claveNueva: ['', [Validators.required, Validators.maxLength(30)]],
+      claveVerificar: ['', [Validators.required, Validators.maxLength(30)]]
     }, { validators: this.confirmedValidator('claveNueva', 'claveVerificar') });
   }
 
-  ionViewDidLeave(event: any) {
+  ionViewWillEnter() {
+    this.service.tabsHide.next(true);
+  }
+
+  ionViewWillLeave() {
     this.service.tabsHide.next(false);
+    this.formGroup.reset();
 
   }
 
   submit() {
 
-    if(this.formGroup.valid){
+    if (this.formGroup.valid) {
 
-      this.service.print(JSON.stringify(this.formGroup.value).replace(/,/g,',\n'));
+      this.service.print(JSON.stringify(this.formGroup.value).replace(/,/g, ',\n'));
     }
   }
 

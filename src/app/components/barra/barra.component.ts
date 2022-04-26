@@ -12,7 +12,6 @@ export class BarraComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.tabsHide);
    }
 
 }

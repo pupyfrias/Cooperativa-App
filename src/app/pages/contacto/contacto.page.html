@@ -1,11 +1,7 @@
 <app-menu [title]="title"></app-menu>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">{{ title }}</ion-title>
-    </ion-toolbar>
-  </ion-header>
+
 
   <ion-card>
     <ion-card-header>
@@ -14,28 +10,24 @@
       </ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <ion-list>
-        <ion-item *ngFor="let item of agentes">
+      <ion-list class="pr-20">
+        <ion-item *ngFor="let item of agentes; let last=last" [lines]="last? 'none':'inset'">
           <ion-avatar slot="start">
-            <img [src]="item.imagen" />
+            <img [src]="item.imagen" loading="lazy" />
           </ion-avatar>
           <ion-label>
-            <h2 style="margin-bottom: 0%;">{{item.nombre}}</h2>
-            <h2 style="margin: 0%;">{{item.puesto}} </h2>
+            {{item.nombre}}
+            <p class="mb-0">{{item.puesto}} </p>
             <div>
               <a [href]="'tel: ' + item.telefono">
-                <mat-label>
-                  <mat-icon>phone</mat-icon>
-                  {{item.telefono}}
-                </mat-label>
+                <ion-icon name="call"></ion-icon>
+                {{item.telefono}}
               </a>
             </div>
             <div>
               <a [href]="'mailto: ' + item.correo">
-                <mat-label>
-                  <mat-icon>email</mat-icon>
-                  {{item.correo}}
-                </mat-label>
+                <ion-icon name="mail"></ion-icon>
+                {{item.correo}}
               </a>
             </div>
           </ion-label>
@@ -55,8 +47,8 @@
     </ion-card-header>
     <ion-card-content>
       <iframe
-        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7568.4205118476775!2d-69.902868!3d18.474133!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x466a5d73de658419!2sCooperativa%20Nacional%20de%20Servicios%20M%C3%BAltiples%20de%20los%20Empleados%20de%20la%20Direcci%C3%B3n%20General%20de%20Impuestos%20Internos!5e0!3m2!1ses-419!2sus!4v1650590037948!5m2!1ses-419!2sus"
-        width="100%" height="400px"  style="border:0;" allowfullscreen="" loading="lazy"
+        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7568.4205118476775!2d-69.902868!3d18.474133!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x466a5d73de658419!2sCOOPDGII%20Nacional%20de%20Servicios%20M%C3%BAltiples%20de%20los%20Empleados%20de%20la%20Direcci%C3%B3n%20General%20de%20Impuestos%20Internos!5e0!3m2!1ses-419!2sus!4v1650590037948!5m2!1ses-419!2sus"
+        width="100%" height="400px" style="border:0;" allowfullscreen="" loading="lazy"
         referrerpolicy="no-referrer-when-downgrade"></iframe>
 
     </ion-card-content>

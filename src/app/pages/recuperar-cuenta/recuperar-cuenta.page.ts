@@ -20,23 +20,32 @@ export class RecuperarCuentaPage implements OnInit {
     private service: MainService
   ) { }
 
-  get id() { return this.formGroup.get('id'); }
-  get password() { return this.formGroup.get('email'); }
-  ngOnInit() {
+  get cedula() { return this.formGroup.get('cedula'); }
+  get email() { return this.formGroup.get('email'); }
 
+  ngOnInit() {
     this.formGroup = this.fb.group({
-      id: ['', [Validators.required, Validators.maxLength(12), Validators.minLength(12)]],
+      cedula: ['', [Validators.required, Validators.max(99999999999), Validators.min(100000000)]],
       email: ['', [Validators.required, Validators.email]],
     });
+  }
 
+
+  ionViewWillEnter() {
+    this.service.tabsHide.next(true);
+  }
+
+
+  ionViewWillLeave() {
+    this.service.tabsHide.next(false);
+    this.formGroup.reset();
   }
 
   submit(form: FormGroupDirective) {
 
     if (this.formGroup.valid) {
-
-      form.resetForm();
       this.service.print(JSON.stringify(this.formGroup.value));
+      //this.formGroup.reset();
     }
   }
 }

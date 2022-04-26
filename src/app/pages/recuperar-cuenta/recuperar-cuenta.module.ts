@@ -13,6 +13,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { BackButtonCustomModule } from 'src/app/components/back-button-custom/back-button-custom.module';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatButtonModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatInputModule
+    MatInputModule,
+    BackButtonCustomModule
   ],
   declarations: [RecuperarCuentaPage]
 })

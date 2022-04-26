@@ -8,6 +8,8 @@ import { InversionesPageRoutingModule } from './inversiones-routing.module';
 
 import { InversionesPage } from './inversiones.page';
 import { MenuModule } from 'src/app/components/menu/menu.module';
+import { DetailsInversionComponent } from './details-inversion/details-inversion.component';
+import { BackButtonCustomModule } from 'src/app/components/back-button-custom/back-button-custom.module';
 
 @NgModule({
   imports: [
@@ -15,8 +17,9 @@ import { MenuModule } from 'src/app/components/menu/menu.module';
     FormsModule,
     IonicModule,
     InversionesPageRoutingModule,
-    MenuModule
+    MenuModule,
+    BackButtonCustomModule
   ],
-  declarations: [InversionesPage]
+  declarations: [InversionesPage, DetailsInversionComponent]
 })
 export class InversionesPageModule {}

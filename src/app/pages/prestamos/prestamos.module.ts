@@ -8,6 +8,8 @@ import { PrestamosPageRoutingModule } from './prestamos-routing.module';
 
 import { PrestamosPage } from './prestamos.page';
 import { MenuModule } from 'src/app/components/menu/menu.module';
+import { DetailsPrestamoComponent } from './details-prestamo/details-prestamo.component';
+import { BackButtonCustomModule } from 'src/app/components/back-button-custom/back-button-custom.module';
 
 @NgModule({
   imports: [
@@ -15,8 +17,9 @@ import { MenuModule } from 'src/app/components/menu/menu.module';
     FormsModule,
     IonicModule,
     PrestamosPageRoutingModule,
-    MenuModule
+    MenuModule,
+    BackButtonCustomModule
   ],
-  declarations: [PrestamosPage]
+  declarations: [PrestamosPage, DetailsPrestamoComponent]
 })
 export class PrestamosPageModule {}

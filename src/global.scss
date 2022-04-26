@@ -16,7 +16,7 @@
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
-@import '~@ionic/angular/css/display.css';
+@import "~@ionic/angular/css/display.css";
 
 /* Optional CSS utils that can be commented out */
 @import "~@ionic/angular/css/padding.css";
@@ -26,10 +26,9 @@
 @import "~@ionic/angular/css/flex-utils.css";
 @import "~bootstrap/scss/bootstrap";
 
-@import '~swiper/css/bundle';
+@import "~swiper/css/bundle";
 
-.swiper-container{
-
+.swiper-container {
   margin: 0% 10%;
 }
 
@@ -67,8 +66,7 @@ ion-menu-button {
   margin: 0;
 }
 
-.logo
-{
+.logo {
   margin: 0% 25% 15%;
 }
 
@@ -77,27 +75,23 @@ div a {
   color: inherit !important;
 }
 
-.radius-image{
+.radius-image {
   border-radius: 4%;
   width: 100%;
 }
-.radius-image.obj-fit{
-
+.radius-image.obj-fit {
   height: 300px;
   object-fit: cover;
 }
 
-.w-80{
+.w-80 {
   width: 80%;
 }
 
-.toast-custom-class{
-
+.toast-custom-class {
   --max-height: 80%;
   --min-height: 40%;
 }
-
-
 
 //------------------------------------------------//
 
@@ -106,20 +100,22 @@ div a {
  * ------------------
  */
 
- body.dark {
-  --ion-color-primary: #428cff;
-  --ion-color-primary-rgb: 66, 140, 255;
+body.dark {
+
+  --ion-color-primary: #00904F;
+  --ion-color-primary-rgb: 84,217,157;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
-  --ion-color-primary-shade: #3a7be0;
-  --ion-color-primary-tint: #5598ff;
+  --ion-color-primary-shade: #278a5e;
+  --ion-color-primary-tint: #4af7aa;
+  //color:#54d99d 
 
-  --ion-color-secondary: #50c8ff;
+  --ion-color-secondary: #4fffb0;
   --ion-color-secondary-rgb: 80, 200, 255;
   --ion-color-secondary-contrast: #ffffff;
   --ion-color-secondary-contrast-rgb: 255, 255, 255;
-  --ion-color-secondary-shade: #46b0e0;
-  --ion-color-secondary-tint: #62ceff;
+  --ion-color-secondary-shade: #2bc881;
+  --ion-color-secondary-tint: #43f2a3;
 
   --ion-color-tertiary: #6a64ff;
   --ion-color-tertiary-rgb: 106, 100, 255;
@@ -251,8 +247,21 @@ ion-item {
   --transition: none;
 }
 
-
-.inner-scroll.scroll-y.overscroll{
-
-padding-bottom: 0px !important;
+.inner-scroll.scroll-y.overscroll {
+  padding-bottom: 0px !important;
 }
+
+.h-skelenton {
+  height: 100%;
+  min-height: 700px;
+}
+
+.pr-20 {
+  padding-right: 20px;
+}
+
+.fw-500 {
+  font-weight: 500 !important;
+}
+
+

@@ -1,12 +1,4 @@
-<ion-header translucent>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button text="Atrás" defaultHref="/configuracion"></ion-back-button>
-    </ion-buttons>
-    <ion-title>Cambiar clave</ion-title>
-  </ion-toolbar>
-</ion-header>
-
+<app-back-button-custom title="Cambiar clave"></app-back-button-custom>
 <ion-content>
   <div class="text-center mt-5 mb-5">
     <form [formGroup]="formGroup">
@@ -19,6 +11,7 @@
             [attr.aria-pressed]="hide">
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
+          <mat-hint slot="end">{{claveActual.value?.length || 0}}/30</mat-hint>
         </mat-form-field>
       </div>
 

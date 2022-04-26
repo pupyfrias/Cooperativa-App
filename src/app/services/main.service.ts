@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ToastController } from '@ionic/angular';
-import { CookieService } from 'ngx-cookie-service';
 import { catchError } from 'rxjs/operators';
+import { StorageService } from './storage.service';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -16,24 +17,25 @@ export class MainService {
   public cuentas = new BehaviorSubject<any[]>([]);
   public prestamos = new BehaviorSubject<any[]>([]);
   public solicitudes = new BehaviorSubject<any[]>([]);
-  public usuario = new BehaviorSubject<string>(this.cookieService.get('user'));
+  public usuario = new BehaviorSubject<string>('');
+  public mode = new BehaviorSubject<string>('');
 
 
 
   constructor(
     private toastController: ToastController,
-    private cookieService: CookieService,
-    private client: HttpClient
+    private client: HttpClient,
+    private storage: StorageService
   ) { }
 
   handleError(error: HttpErrorResponse) {
     return throwError(error.status);
   }
 
-  getResume(): void {
+  async getResume(): Promise<void> {
 
     const formData = new FormData();
-    formData.append('token', this.cookieService.get('token'));
+    formData.append('token', await this.storage.get('token'));
     this.client.post<any>('https://coopdgii.com/coopvirtual/App/resumen', formData)
       .pipe(catchError(this.handleError))
       .subscribe({
@@ -67,9 +69,11 @@ export class MainService {
 
   }
 
-  getSolicitudes(): void {
+  async getSolicitudes(): Promise<void> {
     const formData = new FormData();
-    formData.append('token', this.cookieService.get('token'));
+
+    const token = await this.storage.get('token');
+    formData.append('token', token);
     this.client.post<any>('https://coopdgii.com/coopvirtual/App/solicitudes', formData)
       .pipe(catchError(this.handleError))
       .subscribe({

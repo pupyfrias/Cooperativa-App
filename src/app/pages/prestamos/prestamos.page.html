@@ -1,30 +1,19 @@
 <app-menu [title]="title"></app-menu>
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">{{ title }}</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-   <!-- BEGIN PRESTAMOS -->
-   <ion-card *ngFor="let item of prestamos">
-    <ion-card-header>
-      <ion-card-subtitle>
-        {{item.descripcion}} / {{item.idprestamo}}
-      </ion-card-subtitle>
-    </ion-card-header>
-    <ion-card-content>
-      <p>Monto: RD$ {{item.monto_prestamo}}</p>
-      <p>Tasa de interés: {{item.tasa_interes}}%</p>
-      <p>Balance: RD$ {{item.balance_prestamo}} </p>
-      <p>Cuotas: RD$ {{item.valor_cuota}} </p>
-      <p>Plazo: {{item.plazo}} </p>
-      <p>Interés calculado: RD$ {{item.monto_interes_calculado}} </p>
-      <p>Intereses Fin del mes: RD$ {{item.monto_intereses_fin_mes}} </p>
-      <p>Fecha Incial: {{item.fecha_prestamo}} </p>
-      <p>Fecha Final: {{item.fecha_vencimiento}} </p>
-      
-    </ion-card-content>
+
+  <!-- BEGIN PRESTAMOS -->
+  <ion-card>
+    <ion-list class="pr-20">
+      <ion-item detail *ngFor="let item of prestamos; let last=last" [lines]="last? 'none': 'inset'"
+        [routerLink]="['/prestamos',item.idprestamo]">
+        <ion-label>
+          {{toTitleCase((item.descripcion).replace('PRESTAMOS ',''))}} / {{item.idprestamo}}
+          <p class="mb-0">RD$ {{item.balance_prestamo}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
   </ion-card>
+
   <!-- END PRESTAMOS -->
 </ion-content>

@@ -19,6 +19,9 @@ import { Solicitudes } from './solicitudes-models';
 import { MatChipsModule } from '@angular/material/chips';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
 import { BarraModule } from 'src/app/components/barra/barra.module';
+import { BackButtonCustomComponent } from 'src/app/components/back-button-custom/back-button-custom.component';
+import { BackButtonCustomModule } from 'src/app/components/back-button-custom/back-button-custom.module';
+import { DetailsSolicitudComponent } from './details-solicitud/details-solicitud.component';
 
 
 @NgModule({
@@ -37,9 +40,10 @@ import { BarraModule } from 'src/app/components/barra/barra.module';
     MatInputModule,
     MatChipsModule,
     MaterialFileInputModule,
-    BarraModule
+    BarraModule,
+    BackButtonCustomModule
   ],
-  declarations: [SolicitudesPage, AddComponent],
+  declarations: [SolicitudesPage, AddComponent, DetailsSolicitudComponent],
   providers: [Solicitudes]
 })
 export class SolicitudesPageModule { }

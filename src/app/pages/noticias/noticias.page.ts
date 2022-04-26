@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoadingController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { MainService } from 'src/app/services/main.service';
 
@@ -9,28 +10,50 @@ import { MainService } from 'src/app/services/main.service';
 })
 export class NoticiasPage implements OnInit {
 
-  title='Noticias';
-  listNoticias: any[]= [];
+  title = 'Noticias';
+  listNoticias: any[] = [];
   subs: Subscription;
   constructor(
-    private service: MainService
+    private service: MainService,
+    private loadingController: LoadingController
 
   ) { }
 
   ngOnInit() {
-
-
-    this.subs = this.service.noticia.subscribe(data=>{
-      this.listNoticias = data;
-
-      if(this.listNoticias.length ===0){
-        this.service.getData('noticias');
-      }
-    });
-
   }
 
-  ionViewDidLeave(): void {
+  async ionViewWillEnter() {
+    const loading = await this.loadingController.create({
+      message: 'Cargando',
+    });
+    await loading.present();
+
+    this.subs = this.service.noticia.subscribe({
+      next: async (data) => {
+        this.listNoticias = data;
+        if (this.listNoticias.length === 0) {
+          this.service.getData('noticias');
+        }
+        else {
+          await loading.dismiss();
+        }
+      },
+      error: async (error) => {
+        await loading.dismiss();
+      }
+
+    });
+
+    // this.subs = this.service.noticia.subscribe(data=>{
+    //   this.listNoticias = data;
+
+    //   if(this.listNoticias.length ===0){
+    //     this.service.getData('noticias');
+    //   }
+    // });
+  }
+
+  ionViewWillLeave(): void {
     this.subs.unsubscribe();
   }
 }

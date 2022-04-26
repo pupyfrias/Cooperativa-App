@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,6 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PreguntasFrecuentesPage implements OnInit {
   title= 'Preguntas Recuentes';
+  preguntas = [
+    {pregunta: '¿Comó ....... .............. COOPDGII?',respuesta: ' xxxxxxxxxxxxxx xxxxxxxx xxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxx xxxxxxxxxxx'},
+    {pregunta: '¿Cuándo ..... ................ COOPDGII?',respuesta: ' xxxxxxxxxxxxxx xxxxxxxx xxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxx xxxxxxxxxxx'},
+    {pregunta: '¿Por qué .... ................. COOPDGII?',respuesta: ' xxxxxxxxxxxxxx xxxxxxxx xxxxxxxxxxx xxxxxxxxxxxxxx xxxxxxxx xxxxxxxxxxx'},
+  ];
+
   constructor() { }
 
   ngOnInit() {

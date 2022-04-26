@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContactoPage implements OnInit {
 
-  title='Contacto';
+  title='Contactos';
   agentes = [
     {nombre: 'nombre', puesto: 'puesto', telefono:'809-000-0000', correo: 'correo@gmail.com', imagen:'./../../../assets/images/img.png'},
     {nombre: 'nombre2', puesto: 'puesto', telefono:'809-000-0000', correo: 'correo@gmail.com', imagen:'./../../../assets/images/img.png'},
